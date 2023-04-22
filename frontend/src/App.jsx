@@ -1,34 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
+import { GoSearch } from "react-icons/go";
+import MovieCard from './components/MovieCard'
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const API_URL = 'https://www.omdbapi.com/?apikey=19691ee7'
+
+const App = () => {
+  const [movies, setMovies] = useState([])
+  const [search, setSearch] = useState('')
+
+  const searchMovies = async (title) => {
+    const response = await fetch(`${API_URL}&s=${title}`)
+    const data = await response.json()
+    setMovies(data.Search)
+  }
+
+  useEffect(() => {
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='app'>
+      <div className='search'>
+        <input type='text' placeholder='Search Movies...' onChange={(e) => setSearch(e.target.value)}></input>
+        <GoSearch color='white' size={24} onClick={() => searchMovies(search)} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='container'>
+        {
+          movies?.length > 0 ?
+            (
+              movies.map((movie) => (
+                <MovieCard movie={movie}></MovieCard>
+              ))
+            )
+            :
+            (<div className='empty'>No Movies Found</div>)
+        }
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
