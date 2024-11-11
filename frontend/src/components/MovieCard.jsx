@@ -1,18 +1,15 @@
 import React from 'react'
-import './styles/MovieCard.css'
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({ movie }) => {
     return (
-        <div className='card'>
-            <div>
-                <img src={movie.Poster !== 'N/A' ? movie.Poster : 'http://via.placeholder.com/400'} alt={movie.Title} />
-            </div>
-            <div>
-                <p>{movie.Year}</p>
-            </div>
-            <div>
-                <p>{movie.Title}</p>
-            </div>
+        <div className="flex flex-col gap-2 p-4 rounded-lg overflow-hidden shadow-lg bg-white hover:scale-[1.05]">
+                <img
+                    src={movie.Poster !== 'N/A' ? movie.Poster : 'http://via.placeholder.com/400'}
+                    alt={movie.Title}
+                    className="w-auto h-[350px] object-cover rounded-md"
+                />
+                <p className="text-sm text-gray-500">{movie.Year}</p>
+                <p className="text-lg font-semibold text-gray-800 truncate">{movie.Title}</p>
         </div>
     )
 }
