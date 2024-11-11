@@ -4,7 +4,7 @@ import { GoSearch } from "react-icons/go";
 import MovieCard from './components/MovieCard'
 
 
-const API_URL = `https://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API_KEY}`
+const API_URL = `https://www.omdbapi.com/?apikey=19691ee7`
 
 const App = () => {
   const [movies, setMovies] = useState([])
@@ -39,7 +39,7 @@ const App = () => {
           (
             <div className='grid grid-cols-4 gap-4'>
               {movies.map((movie) => (
-                <MovieCard movie={movie}></MovieCard>
+                <MovieCard movie={movie} key={movie.imdbID}></MovieCard>
               ))}
             </div>
           )
